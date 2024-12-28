@@ -1,5 +1,8 @@
 package sbp.school.kafka.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Properties;
 
 
@@ -8,13 +11,14 @@ import java.util.Properties;
  * Required kafka-producer.properties file in src/main/resources/ with kafka producer properties
  */
 public class KafkaProducerConfig {
+    private static final Logger log = LoggerFactory.getLogger(KafkaProducerConfig.class);
     private final Properties properties = new Properties();
 
     public KafkaProducerConfig(){
         try {
             properties.load(KafkaProducerConfig.class.getClassLoader().getResourceAsStream("kafka-producer.properties"));
         } catch (Exception e){
-            System.out.println("Error while loading kafka configuration file: " + e.getMessage());
+            log.error("Loading kafka configuration file failed : {}", e.getMessage());
             e.printStackTrace();
         }
     }

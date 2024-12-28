@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Serializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sbp.school.kafka.dto.TransactionDto;
 
 import java.nio.charset.StandardCharsets;
@@ -13,6 +15,7 @@ import java.nio.charset.StandardCharsets;
  * Custom serializer for messages.
  */
 public class TransactionSerializer implements Serializer<TransactionDto> {
+    private static final Logger log = LoggerFactory.getLogger(TransactionSerializer.class);
     private final ObjectMapper objectMapper;
     private final JsonSchemaValidator jsonValidator;
 
@@ -32,12 +35,12 @@ public class TransactionSerializer implements Serializer<TransactionDto> {
                 jsonValidator.validateJson(jsonString, jsonSchemaPath);
                 return jsonString.getBytes(StandardCharsets.UTF_8);
             } catch (Exception e){
-                System.out.println("[ERROR] Serialization error: " + e.getMessage());
+                log.error("Serialization error: {}", e.getMessage());
                 throw new SerializationException(e);
             }
         } else {
-            System.out.println("Transaction is null.");
-            throw new RuntimeException("Transaction is null!");
+            log.error("Transaction is null");
+            throw new RuntimeException("Transaction is null");
         }
     }
 }
