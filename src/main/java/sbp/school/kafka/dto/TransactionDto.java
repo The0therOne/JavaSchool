@@ -1,6 +1,8 @@
 package sbp.school.kafka.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +21,8 @@ public class TransactionDto {
     )
     private final LocalDateTime date;
 
-    public TransactionDto(int id, OperationType operationType, double amount, String account, LocalDateTime date) {
+    @JsonCreator
+    public TransactionDto(@JsonProperty("id") int id, @JsonProperty("operationType") OperationType operationType,@JsonProperty("amount") double amount, @JsonProperty("account") String account, @JsonProperty("time") LocalDateTime date) {
         this.id = id;
         this.operationType = operationType;
         this.amount = amount;

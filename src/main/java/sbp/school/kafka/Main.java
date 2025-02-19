@@ -1,18 +1,23 @@
 package sbp.school.kafka;
 
 import sbp.school.kafka.config.KafkaConsumerConfig;
-import sbp.school.kafka.listener.ThreadListener;
+import sbp.school.kafka.listener.KafkaConsumerService;
 
 import java.util.Properties;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
+    /**
+     * Точка входа. Запуск listen() у consumer.
+     * Хук на завершение работы приложения,
+     * чтобы поток нормально завершился через вызов close() метода у листенера.
+     * @param args Аргументы консоли
+     */
     public static void main(String[] args) {
         Properties properties = new KafkaConsumerConfig().getProperties();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.submit(new ThreadListener(properties));
-        executorService.submit(new ThreadListener(properties));
+        try(KafkaConsumerService consumerService = new KafkaConsumerService(properties)){
+            Runtime.getRuntime().addShutdownHook(new Thread(consumerService::close));
+            consumerService.listen();
+        }
     }
 }
