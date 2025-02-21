@@ -15,28 +15,34 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <kafka.client>3.3.2</kafka.client>
+        <juinit>3.8.1</juinit>
+        <log4j>2.23.1</log4j>
+        <json.validator>2.2.14</json.validator>
+        <json.jackson>2.18.1</json.jackson>
+        <json.jsr310>2.17.0</json.jsr310>
+
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.23.1</version>
+            <version>${log4j}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.23.1</version>
+            <version>${log4j}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
-            <version>2.23.1</version>
+            <version>${log4j}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${juinit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -47,12 +53,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.18.1</version>
+            <version>${json.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.github.java-json-tools</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>2.2.14</version>
+            <version>${json.validator}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -63,7 +69,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.17.0</version>
+            <version>${json.jsr310}</version>
         </dependency>
     </dependencies>
 </project>
